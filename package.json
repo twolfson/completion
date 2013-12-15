@@ -1,0 +1,45 @@
+{
+  "name": "completion",
+  "description": "Completion library for words, commands, and sentences",
+  "version": "0.1.0",
+  "homepage": "https://github.com/twolfson/completion",
+  "author": {
+    "name": "Todd Wolfson",
+    "email": "todd@twolfson.com",
+    "url": "http://twolfson.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/twolfson/completion.git"
+  },
+  "bugs": {
+    "url": "https://github.com/twolfson/completion/issues"
+  },
+  "licenses": [
+    {
+      "type": "UNLICENSE",
+      "url": "https://github.com/twolfson/completion/blob/master/UNLICENSE"
+    }
+  ],
+  "main": "lib/completion",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "~1.11.0",
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-watch": "~0.4.0"
+  },
+  "keywords": [
+    "complete",
+    "completion",
+    "shell",
+    "auto",
+    "tab"
+  ]
+}
