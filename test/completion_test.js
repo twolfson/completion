@@ -1,6 +1,29 @@
+var assert = require('assert');
 var Completion = require('../');
+var testUtils = require('./utils/index');
 
-describe('A partial command with one completion match', function () {
+// DEV: Internal util test
+// TODO: Can we break out the util to a separate lib?
+describe('A command', function () {
+  before(function () {
+    this.cmd = 'git ad|README';
+  });
+
+  describe('broken down into parameters', function () {
+    before(function () {
+      this.params = testUtils.cmdToParams(this.cmd);
+    });
+
+    it('is as expected', function () {
+      assert.deepEqual(this.params, {
+        cursor: 6,
+        line: 'git adREADME'
+      });
+    });
+  });
+});
+
+describe.skip('A partial command with one completion match', function () {
   describe('being completed', function () {
     it('returns its match', function () {
 
@@ -8,7 +31,7 @@ describe('A partial command with one completion match', function () {
   });
 });
 
-describe('A partial command with multiple completions', function () {
+describe.skip('A partial command with multiple completions', function () {
   describe('being completed', function () {
     it('returns all of its matches', function () {
 
@@ -16,7 +39,7 @@ describe('A partial command with multiple completions', function () {
   });
 });
 
-describe('A partial command in junction with the item', function () {
+describe.skip('A partial command in junction with the item', function () {
   describe('being completed', function () {
     it('returns the command\'s match', function () {
 
