@@ -3,7 +3,7 @@ var Completion = require('../');
 var testUtils = require('./utils/index');
 
 // DEV: Internal util test
-// TODO: Can we break out the util to a separate lib?
+// TODO: We should break this into another lib
 describe('A command', function () {
   before(function () {
     this.cmd = 'git ad|README';
