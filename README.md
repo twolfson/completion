@@ -21,7 +21,33 @@ Ideas:
 
 ```js
 var completion = new Completion({
-  name:
+  program: 'git',
+  commands: [{
+    name: 'checkout',
+    completion: function (params, cb) {
+      // params = {line, lineIndex, partialWord, partialLine, currentWord, currentWordIndex, words, wordsIndex}
+      // TODO: There are 2 parts. 1 is a completion wizard which can predict good matches.
+      // TODO: The other is a very thin completion library which we present here
+      getGitBranches(function (err, allBranches) {
+        if (err) {
+          return cb(err);
+        }
+
+        var branches = allBranches.filter(function (branch) {
+          // DEV: underscore.string makes life easier here
+          // TODO: How do we deal with
+          /*
+          git checkout|world -> git checkout dev/hello.world
+          Maybe it goes
+          git checkout|world -> git checkout |world -> git checkout dev/hello.|world
+          */
+          return _.startsWith(branch, params.partialWord);
+        });
+        cb(null, branches);
+      });
+    }
+  }]
+  // DEV: Each completion action should be a lazy load
   // DEV: There is values (e.g. branch, files) vs commands (e.g. `npm publish`)
   // but should we make a strong distinction?
   // DEV: branches can be chained forever but commands cannot (or maybe I am being short sighted)
