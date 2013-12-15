@@ -25,6 +25,7 @@ var completion = new Completion({
   commands: [{
     name: 'checkout',
     completion: function (params, cb) {
+      // DEV: Start with basic line, lineIndex. Then, move excess to another lib.
       // params = {line, lineIndex, partialWord, partialLine, currentWord, currentWordIndex, words, wordsIndex}
       // TODO: There are 2 parts. 1 is a completion wizard which can predict good matches.
       // TODO: The other is a very thin completion library which we present here
@@ -40,6 +41,30 @@ var completion = new Completion({
           git checkout|world -> git checkout dev/hello.world
           Maybe it goes
           git checkout|world -> git checkout |world -> git checkout dev/hello.|world
+          */
+          // DEV: This means partialWord isn't the ideal piece. We want both parts of the word (leftPartial, rightPartial).
+          // DEV: Maybe we should present a nested objet
+          /*
+          {
+            line: {
+              value: 'git checkoutworld',
+              index: 12,
+              partialLeft: 'git checkout',
+              partialRight: 'git world',
+            },
+            words: {
+              value: ['git', 'checkoutworld']
+              index: 1,
+              partialLeft: ['git', 'checkout'],
+              partialRight: ['world']
+            },
+            word: {
+              value: 'checkoutworld'
+              index: 8,
+              partialLeft: 'checkout',
+              partialRight: 'world'
+            }
+          }
           */
           return _.startsWith(branch, params.partialWord);
         });
