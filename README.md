@@ -25,6 +25,7 @@ var completion = new Completion({
   // DEV: There is values (e.g. branch, files) vs commands (e.g. `npm publish`)
   // but should we make a strong distinction?
   // DEV: branches can be chained forever but commands cannot (or maybe I am being short sighted)
+  // DEV: The future is impossible to predict, code for what we know now. Solve for 80/20
 });
 ```
 
