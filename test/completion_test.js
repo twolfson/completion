@@ -33,6 +33,7 @@ describe('A command', function () {
 describe('A partial command with one completion match', function () {
   before(function () {
     this.command = 'npm pub';
+    // DEV: Sometimes completions can be expensive (e.g. `npm install |`), we should make a lookup only when it is cost-effective.
     this.completion = new Completion({
       name: 'npm',
       children: [{
