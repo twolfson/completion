@@ -24,11 +24,11 @@ describe('A command', function () {
 });
 
 // Examples:
-// git chec| -> git checkout |
-// git checkout dev/h| -> git checkout dev/hello.world|
-// git checkout dev/| -> [git checkout dev/hello.world, git checkout dev/goodbye.moon]
-// git chec|dev/ -> [git checkout |dev/]
-// git che|cdev/ -> [git checkout |cdev/]
+// `git chec|` -> `git checkout |`
+// `git checkout dev/h|` -> `git checkout dev/hello.world|`
+// `git checkout dev/|` -> `[git checkout dev/hello.world, git checkout dev/goodbye.moon]`
+// `git chec|dev/` -> `[git checkout |dev/]`
+// `git che|cdev/` -> `[git checkout |cdev/]`
 
 describe('A partial command with one completion match', function () {
   before(function () {

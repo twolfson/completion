@@ -2,6 +2,32 @@
 
 Completion library for words, commands, and sentences
 
+This was built as part of [foundry][], a CLI utility for making releases painless.
+
+[foundry]: https://github.com/twolfson/foundry
+
+```js
+// Examples:
+// `git chec|` -> `git checkout |`
+// `git checkout dev/h|` -> `git checkout dev/hello.world|`
+// `git checkout dev/|` -> [`git checkout dev/hello.world`, `git checkout dev/goodbye.moon`]
+// `git chec|dev/` -> `[git checkout |dev/]`
+// `git che|cdev/` -> `[git checkout |cdev/]`
+// DEV: More of an edge case
+// `git delete-branch a b c ...` -> [`git delete-branch d`, `git delete-branch e`, `git delete-branch f`]
+```
+
+Ideas:
+
+```js
+var completion = new Completion({
+  name:
+  // DEV: There is values (e.g. branch, files) vs commands (e.g. `npm publish`)
+  // but should we make a strong distinction?
+  // DEV: branches can be chained forever but commands cannot (or maybe I am being short sighted)
+});
+```
+
 ## Getting Started
 Install the module with: `npm install completion`
 
