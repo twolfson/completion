@@ -3,7 +3,7 @@
  * 'git ad|README' -> {line: 'git adREADME', cursor: 6}
  */
 // TODO: We should break this into another lib
-exports.cmdToParams = function (cmd) {
+exports.commandToParams = function (cmd) {
   var parts = cmd.split('|');
   return {
     cursor: parts[0].length,

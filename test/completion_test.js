@@ -6,12 +6,12 @@ var testUtils = require('./utils/index');
 // TODO: We should break this into another lib
 describe('A command', function () {
   before(function () {
-    this.cmd = 'git ad|README';
+    this.command = 'git ad|README';
   });
 
   describe('broken down into parameters', function () {
     before(function () {
-      this.params = testUtils.cmdToParams(this.cmd);
+      this.params = testUtils.commandToParams(this.command);
     });
 
     it('is as expected', function () {
@@ -23,7 +23,24 @@ describe('A command', function () {
   });
 });
 
-describe.skip('A partial command with one completion match', function () {
+// Examples:
+// git chec| -> git checkout |
+// git checkout dev/h| -> git checkout dev/hello.world|
+// git checkout dev/| -> [git checkout dev/hello.world, git checkout dev/goodbye.moon]
+// git chec|dev/ -> [git checkout |dev/]
+// git che|cdev/ -> [git checkout |cdev/]
+
+describe('A partial command with one completion match', function () {
+  before(function () {
+    this.command = 'npm pub';
+    this.completion = new Completion({
+      name: 'npm',
+      children: [{
+        name: 'publish'
+      }]
+    });
+  });
+
   describe('being completed', function () {
     it('returns its match', function () {
 
