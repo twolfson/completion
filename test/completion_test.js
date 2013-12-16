@@ -129,3 +129,22 @@ describe('A terminal command with whitespace', function () {
     it('returns nothing', assertExpected);
   });
 });
+
+describe('A terminal command with a completion function', function () {
+  before(function () {
+    this.params = testUtils.commandToParams('git checkout hello|');
+    this.expected = ['hello-world', 'hello-there'];
+    this.completion = new Completion({
+      git: {
+        checkout: function (params, cb) {
+          cb(null, ['hello-world', 'hello-there']);
+        }
+      }
+    });
+  });
+
+  describe('being completed', function () {
+    completeCommand();
+    it('returns the results of the completion', assertExpected);
+  });
+});
