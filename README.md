@@ -24,11 +24,14 @@ var completion = new Completion({
   program: 'git',
   commands: [{
     name: 'checkout',
+    // DEV: If the rightmost partialLeft word is the command, run completion for it
+    //
     completion: function (params, cb) {
       // DEV: Start with basic line, lineIndex. Then, move excess to another lib.
       // params = {line, lineIndex, partialWord, partialLine, currentWord, currentWordIndex, words, wordsIndex}
       // TODO: There are 2 parts. 1 is a completion wizard which can predict good matches.
       // TODO: The other is a very thin completion library which we present here
+      // TODO: What about nested commands (e.g. `git remote add`)
       getGitBranches(function (err, allBranches) {
         if (err) {
           return cb(err);
