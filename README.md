@@ -26,7 +26,7 @@ Ideas:
       // Return list of current branches
     },
     remote: {
-      'add': '*', // Can be followed by anything
+      'add': null, // Can be followed by anything
       'remove': function () {
         // Return list of current remotes
       }
@@ -39,6 +39,8 @@ Ideas:
     publish: null // Nothing follows
   }
 }
+
+// DEV: At this level, we will not accept strings or arrays of strings since there is a good amount of additional logic which should be in another composed module.
 
 ```js
 var completion = new Completion({
