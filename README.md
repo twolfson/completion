@@ -7,15 +7,9 @@ This was built as part of [foundry][], a CLI utility for making releases painles
 [foundry]: https://github.com/twolfson/foundry
 
 ```js
-// Examples:
-// `git chec|` -> `git checkout |`
-// `git checkout dev/h|` -> `git checkout dev/hello.world|`
-// `git checkout dev/|` -> [`git checkout dev/hello.world`, `git checkout dev/goodbye.moon`]
-// `git chec|dev/` -> `git checkout |dev/`
-// `git che|cdev/` -> `git checkout |cdev/`
-// DEV: More of an edge case
-// TODO: Move this into an open issue (prob some trick with a '*' key)
-// `git delete-branch a b c ...` -> [`git delete-branch d`, `git delete-branch e`, `git delete-branch f`]
+'git chec|' -> ['git checkout |']
+'git checkout dev/|' -> ['dev/hello.world', 'git checkout dev/goodbye.moon']
+'git chec|dev/' -> ['git checkout |dev/']
 ```
 
 ## Getting Started
@@ -47,51 +41,64 @@ completion.complete({
   line: 'git chec',
   cursor: 8
 }, function (err, results) {
-  // TODO: Is this correct?
   results; // ['checkout']
 });
 ```
 
 ## How it works
-In `bash`, my research has shown that we can only fill out letters to the right.
-
-> Although, I am still in disbelief of this.
+In `bash`, tab completion will override the the left half of the current word.
 
 As a result, for cases like:
 
 ```bash
 $ git chec|
-$ # the answer is simple:
-$ git checkout|
+$ # We want
+$ git checkout| # requires ['checkout'] to be returned
 ```
 
-However, in more complex scenarios:
+Unfortunately, while we can deal with commands, we cannot predict the values of those.
 
-```bash
-$ git chec|world
-$ git checkout |world
-$ git checkout hello.|world
-```
-
-We must check both the value on the left and the value on the right. This library removes half of the worries by dealing with commands and invoking the appropriate completion commands.
-
-You will still be responsible for handling of left/right partials in the autocompleted items.
-
-// TODO: Create that logic in another library
+You will still be responsible for handling of right partials in the autocompleted items.
 
 ```bash
 $ git checkout a|c
 [
-  'abc', # Checkout `abc` branch
-  'aaa' # Checkout `c` file from `aaa` branch
+  'abc', # `git checkout abc` - Checkout `abc` branch
+  'aaa' # `git checkout aaa c` - Chekckout `c` file from `aaa` branch
 ]
 ```
 
 ## Documentation
-_(Coming soon)_
+`completion` exposes the `Completion` constructor via its `module.exports`
+
+### new Completion(tree)
+Create a new `completion` instance
+
+- tree `Object` - Outline of program
+    -
+
 
 ## Examples
-_(Coming soon)_
+An example of `git` would be
+
+```js
+new Completion({
+  git: {
+    // `git checkout master`
+    checkout: function (params, cb) {
+      // Get git branches and find matches
+    },
+    remote: {
+      // `git remote add origin git@github.com:...`
+      add: null, // No possible tab completion here
+      // `git remote rm origin`
+      rm: function (params, cb) {
+        // Get git branches and find matches
+      }
+    }
+  }
+});
+```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint via [grunt](https://github.com/gruntjs/grunt) and test via `npm test`.
