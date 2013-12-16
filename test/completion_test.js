@@ -21,38 +21,56 @@ describe('A command', function () {
   });
 });
 
+function completeCommand() {
+  before(function (done) {
+    var that = this;
+    this.completion.complete(this.params, function (err, results) {
+      that.actual = results;
+      done(err);
+    });
+  });
+}
+
+function assertExpected() {
+  assert.deepEqual(this.actual, this.expected);
+}
+
 describe('A partial command with one completion match', function () {
   before(function () {
     this.params = testUtils.commandToParams('npm pub|');
     this.expected = ['publish'];
     this.completion = new Completion({
-      'npm': {
-        'publish': null
+      npm: {
+        publish: null
       }
     });
   });
 
   describe('being completed', function () {
-    before(function (done) {
-      // Run the completion and save results
-      var that = this;
-      this.completion.complete(this.params, function (err, results) {
-        that.actual = results;
-        done(err);
-      });
-    });
-
-    it('returns its match', function () {
-      assert.deepEqual(this.actual, this.expected);
-    });
+    completeCommand();
+    it('returns its match', assertExpected);
   });
 });
 
-describe.skip('A partial command with multiple completions', function () {
-  describe('being completed', function () {
-    it('returns all of its matches', function () {
-
+describe.only('A partial command with multiple completions', function () {
+  before(function () {
+    this.params = testUtils.commandToParams('git ch|');
+    this.expected = ['checkout', 'cherry-pick'];
+    this.completion = new Completion({
+      git: {
+        checkout: function (params, cb) {
+          cb(null, ['hello.world']);
+        },
+        'cherry-pick': function (params, cb) {
+          cb(null, ['maraschino']);
+        }
+      }
     });
+  });
+
+  describe('being completed', function () {
+    completeCommand();
+    it('returns all of its matches', assertExpected);
   });
 });
 
