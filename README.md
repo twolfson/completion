@@ -6,7 +6,7 @@ This was built as part of [foundry][], a CLI utility for making releases painles
 
 [foundry]: https://github.com/twolfson/foundry
 
-```js
+```bash
 $ git chec|
 $ git checkout |
 
