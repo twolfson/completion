@@ -75,7 +75,7 @@ $ git checkout a|c
 ## Documentation
 `completion` exposes the `Completion` constructor via its `module.exports`
 
-### new Completion(tree)
+### `new Completion(tree)`
 Create a new `completion` instance
 
 - tree `Object` - Outline of program
@@ -92,7 +92,7 @@ Create a new `completion` instance
         - `null` representing a terminal function which has no further predictive input
             - **If you want to list out files, do so. Don't use `null` for that case.**
 
-### completion.complete(params, cb)
+### `completion.complete(params, cb)`
 Get potential completion matches
 
 - params `Object` - Information similar to that passed in by `bash's` tab completion
