@@ -23,8 +23,8 @@ Install the module with: `npm install completion`
 ```javascript
 var Completion = require('completion');
 var completion = new Completion({
-  'git': {
-    'checkout': function (params, cb) {
+  git: {
+    checkout: function (params, cb) {
       // For `git checkout dev/|`
       // params.line = 'git checkout dev'
       // params.cursor = 17
