@@ -26,14 +26,16 @@ var Completion = require('completion');
 var completion = new Completion({
   'git': {
     'checkout': function (params, cb) {
-      // params = {line, cursor}
+      // For `git checkout dev/|`
+      // params.line = 'git checkout dev'
+      // params.cursor = 17
       getGitBranches(function (err, allBranches) {
         if (err) {
           return cb(err);
         }
 
         var branches = allBranches.filter(function (branch) {
-          return _.startsWith(branch, params.partialWord);
+          return params.line.match(branch);
         });
         cb(null, branches);
       });
