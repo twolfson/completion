@@ -52,7 +52,7 @@ describe('A partial command with one completion match', function () {
   });
 });
 
-describe.only('A partial command with multiple completions', function () {
+describe('A partial command with multiple completions', function () {
   before(function () {
     this.params = testUtils.commandToParams('git ch|');
     this.expected = ['checkout', 'cherry-pick'];
@@ -74,10 +74,24 @@ describe.only('A partial command with multiple completions', function () {
   });
 });
 
-describe.skip('A partial command in junction with the item', function () {
-  describe('being completed', function () {
-    it('returns the command\'s match', function () {
-
+describe.only('A partial command in junction with the item', function () {
+  before(function () {
+    this.params = testUtils.commandToParams('git che|world');
+    this.expected = ['checkout', 'cherry-pick'];
+    this.completion = new Completion({
+      git: {
+        checkout: function (params, cb) {
+          cb(null, ['hello.world']);
+        },
+        'cherry-pick': function (params, cb) {
+          cb(null, ['maraschino']);
+        }
+      }
     });
+  });
+
+  describe('being completed', function () {
+    completeCommand();
+    it('returns the command\'s match', assertExpected);
   });
 });
