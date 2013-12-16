@@ -1,0 +1,44 @@
+# Forked from https://github.com/isaacs/npm/blob/v1.3.17/lib/utils/completion.sh
+###-begin-teeest-completion-###
+#
+# teeest command completion script
+#
+# Installation: teeest completion >> ~/.bashrc  (or ~/.zshrc)
+# Or, maybe: teeest completion > /usr/local/etc/bash_completion.d/teeest
+#
+
+COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
+COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
+export COMP_WORDBREAKS
+
+if complete &>/dev/null; then
+  _teeest_completion () {
+    local si="$IFS"
+
+    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
+                           COMP_LINE="$COMP_LINE" \
+                           COMP_POINT="$COMP_POINT" \
+                           teeest completion -- "${COMP_WORDS[@]}" \
+                           2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  complete -F _teeest_completion teeest
+elif compctl &>/dev/null; then
+  _teeest_completion () {
+    local cword line point words si
+    read -Ac words
+    read -cn cword
+    let cword-=1
+    read -l line
+    read -ln point
+    si="$IFS"
+    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+                       COMP_LINE="$line" \
+                       COMP_POINT="$point" \
+                       teeest completion -- "${words[@]}" \
+                       2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  compctl -K _teeest_completion teeest
+fi
+###-end-teeest-completion-###
