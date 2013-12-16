@@ -7,9 +7,14 @@ This was built as part of [foundry][], a CLI utility for making releases painles
 [foundry]: https://github.com/twolfson/foundry
 
 ```js
-'git chec|' -> ['git checkout |']
-'git checkout dev/|' -> ['dev/hello.world', 'git checkout dev/goodbye.moon']
-'git chec|dev/' -> ['git checkout |dev/']
+$ git chec|
+$ git checkout |
+
+$ git checkout dev/|
+dev/hello.world dev/goodbye.moon
+
+$ git chec|dev/
+$ git checkout |dev/
 ```
 
 ## Getting Started
