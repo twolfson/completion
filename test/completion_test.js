@@ -74,7 +74,7 @@ describe('A partial command with multiple completions', function () {
   });
 });
 
-describe.only('A partial command in junction with the item', function () {
+describe('A partial command in junction with the item', function () {
   before(function () {
     this.params = testUtils.commandToParams('git che|world');
     this.expected = ['checkout', 'cherry-pick'];
@@ -93,5 +93,39 @@ describe.only('A partial command in junction with the item', function () {
   describe('being completed', function () {
     completeCommand();
     it('returns the command\'s match', assertExpected);
+  });
+});
+
+describe('A terminal command', function () {
+  before(function () {
+    this.params = testUtils.commandToParams('npm publish|');
+    this.expected = ['publish'];
+    this.completion = new Completion({
+      npm: {
+        publish: null
+      }
+    });
+  });
+
+  describe('being completed', function () {
+    completeCommand();
+    it('returns the command (for spacing)', assertExpected);
+  });
+});
+
+describe.only('A terminal command with whitespace', function () {
+  before(function () {
+    this.params = testUtils.commandToParams('npm publish |');
+    this.expected = [];
+    this.completion = new Completion({
+      npm: {
+        publish: null
+      }
+    });
+  });
+
+  describe('being completed', function () {
+    completeCommand();
+    it('returns the command (for spacing)', assertExpected);
   });
 });
