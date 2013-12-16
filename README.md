@@ -19,13 +19,34 @@ This was built as part of [foundry][], a CLI utility for making releases painles
 
 Ideas:
 
+// DEV: Leafs are not always values, they can be commands (e.g. `npm publish`)
+{
+  git: {
+    checkout: function () {
+      // Return list of current branches
+    },
+    remote: {
+      'add': '*', // Can be followed by anything
+      'remove': function () {
+        // Return list of current remotes
+      }
+    },
+    '*': function () {
+      // List out files
+    }
+  },
+  npm: {
+    publish: null // Nothing follows
+  }
+}
+
 ```js
 var completion = new Completion({
   program: 'git',
   commands: [{
     name: 'checkout',
     // DEV: If the rightmost partialLeft word is the command, run completion for it
-    //
+    // `git checkout|dev/` -> `git checkout dev/`
     completion: function (params, cb) {
       // DEV: Start with basic line, lineIndex. Then, move excess to another lib.
       // params = {line, lineIndex, partialWord, partialLine, currentWord, currentWordIndex, words, wordsIndex}
