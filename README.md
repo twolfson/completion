@@ -57,7 +57,6 @@ As a result, for cases like:
 
 ```bash
 $ git chec|
-$ # We want
 $ git checkout| # requires ['checkout'] to be returned
 ```
 
