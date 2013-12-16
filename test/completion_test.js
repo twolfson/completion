@@ -33,8 +33,13 @@ describe('A partial command with one completion match', function () {
   });
 
   describe('being completed', function () {
-    before(function () {
-      this.actual = this.completion.complete(this.params);
+    before(function (done) {
+      // Run the completion and save results
+      var that = this;
+      this.completion.complete(this.params, function (err, results) {
+        that.actual = results;
+        done(err);
+      });
     });
 
     it('returns its match', function () {
