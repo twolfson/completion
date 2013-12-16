@@ -44,6 +44,41 @@ var completion = new Completion({
 });
 ```
 
+## How it works
+In `bash`, my research has shown that we can only fill out letters to the right.
+
+> Although, I am still in disbelief of this.
+
+As a result, for cases like:
+
+```bash
+$ git chec|
+$ # the answer is simple:
+$ git checkout|
+```
+
+However, in more complex scenarios:
+
+```bash
+$ git chec|world
+$ git checkout |world
+$ git checkout hello.|world
+```
+
+We must check both the value on the left and the value on the right. This library removes half of the worries by dealing with commands and invoking the appropriate completion commands.
+
+You will still be responsible for handling of left/right partials in the autocompleted items.
+
+// TODO: Create that logic in another library
+
+```bash
+$ git checkout a|c
+[
+  'abc', # Checkout `abc` branch
+  'aaa' # Checkout `c` file from `aaa` branch
+]
+```
+
 ## Documentation
 _(Coming soon)_
 
