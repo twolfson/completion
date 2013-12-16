@@ -42,6 +42,14 @@ var completion = new Completion({
     }
   }]
 });
+completion.complete({
+  // `git chec|`
+  line: 'git chec',
+  cursor: 8
+}, function (err, results) {
+  // TODO: Is this correct?
+  results; // ['checkout']
+});
 ```
 
 ## How it works

@@ -8,12 +8,10 @@ describe('A command', function () {
   before(function () {
     this.command = 'git ad|README';
   });
-
   describe('broken down into parameters', function () {
     before(function () {
       this.params = testUtils.commandToParams(this.command);
     });
-
     it('is as expected', function () {
       assert.deepEqual(this.params, {
         cursor: 6,
@@ -23,28 +21,24 @@ describe('A command', function () {
   });
 });
 
-// Examples:
-// `git chec|` -> `git checkout |`
-// `git checkout dev/h|` -> `git checkout dev/hello.world|`
-// `git checkout dev/|` -> `[git checkout dev/hello.world, git checkout dev/goodbye.moon]`
-// `git chec|dev/` -> `[git checkout |dev/]`
-// `git che|cdev/` -> `[git checkout |cdev/]`
-
 describe('A partial command with one completion match', function () {
   before(function () {
-    this.command = 'npm pub';
-    // DEV: Sometimes completions can be expensive (e.g. `npm install |`), we should make a lookup only when it is cost-effective.
+    this.params = testUtils.commandToParams('npm pub|');
+    this.expected = ['publish'];
     this.completion = new Completion({
-      name: 'npm',
-      children: [{
-        name: 'publish'
-      }]
+      'npm': {
+        'publish': null
+      }
     });
   });
 
   describe('being completed', function () {
-    it('returns its match', function () {
+    before(function () {
+      this.actual = this.completion.complete(this.params);
+    });
 
+    it('returns its match', function () {
+      assert.deepEqual(this.actual, this.expected);
     });
   });
 });
