@@ -91,13 +91,17 @@ Create a new `completion` instance
 ### completion.complete(params, cb)
 Get potential completion matches
 
-- params `Object`
+- params `Object` - Information similar to that passed in by `bash's` tab completion
+    - line `String` - Input to complete against (similar to `COMP_LINE`)
+    - cursor `Number` - Index within `line` of the cursor (similar to `COMP_POINT`)
+- cb `Function` - Error-first callback function that receives matches
+    - `cb` should have a signature of `function (err, results)`
 
 ## Examples
 An example of `git` would be
 
 ```js
-new Completion({
+var gitCompletion = new Completion({
   git: {
     // `git checkout master`
     checkout: function (params, cb) {
@@ -112,6 +116,22 @@ new Completion({
       }
     }
   }
+});
+
+gitCompletion.complete({
+  // `git remo|add`
+  line: 'git remoadd',
+  cursor: 8
+}, function (err, results) {
+  results; // ['remote']
+});
+
+gitCompletion.complete({
+  // `git remote |`
+  line: 'git remote',
+  cursor: 11
+}, function (err, results) {
+  results; // ['add', 'remove']
 });
 ```
 
