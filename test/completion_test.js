@@ -126,6 +126,6 @@ describe.only('A terminal command with whitespace', function () {
 
   describe('being completed', function () {
     completeCommand();
-    it('returns the command (for spacing)', assertExpected);
+    it('returns nothing', assertExpected);
   });
 });
