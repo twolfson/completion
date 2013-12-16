@@ -75,8 +75,23 @@ $ git checkout a|c
 Create a new `completion` instance
 
 - tree `Object` - Outline of program
-    -
+    - Each key represents a new command (e.g. `git`, `checkout`)
+    - Each value can be
+        - An object representing another layer of commands
+        - A function that will callback with potential matches
+            - The function should be error-first; have a signature of `function (params, cb)`
+            - params `Object` - A container for information
+                - line `String` - Original string input to `completion.complete`
+                - cursor `Number` - Index within `line` of the cursor
+            - cb `Function` - Error-first callback function to run with matches
+                - `cb` has a signature of `function (err, results)`
+        - `null` representing a terminal function which has no further predictive input
+            - **If you want to list out files, do so. Don't use `null` for that case.**
 
+### completion.complete(params, cb)
+Get potential completion matches
+
+- params `Object`
 
 ## Examples
 An example of `git` would be
