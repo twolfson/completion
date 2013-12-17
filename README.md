@@ -85,14 +85,15 @@ Create a new `completion` instance
     - Each value can be
         - An object representing another layer of commands
         - A function that will callback with potential matches
-            - The function should be error-first; have a signature of `function (params, cb)`
-            - params `Object` - A container for information
-                - line `String` - Original string input to `completion.complete`
-                - cursor `Number` - Index within `line` of the cursor
+            - The function should be error-first; have a signature of `function (info, cb)`
+            - info `Object` - Collection of distilled information
+                - The format will be the returned value from [twolfson/line-info][]
             - cb `Function` - Error-first callback function to run with matches
                 - `cb` has a signature of `function (err, results)`
         - `null` representing a terminal function which has no further predictive input
             - **If you want to list out files, do so. Don't use `null` for that case.**
+
+[twolfson/line-info]: https://github.com/twolfson/line-info#lineinfoparams
 
 ### `completion.complete(params, cb)`
 Get potential completion matches
@@ -110,14 +111,14 @@ An example of `git` would be
 var gitCompletion = new Completion({
   git: {
     // `git checkout master`
-    checkout: function (params, cb) {
+    checkout: function (info, cb) {
       // Get git branches and find matches
     },
     remote: {
       // `git remote add origin git@github.com:...`
       add: null, // No possible tab completion here
       // `git remote rm origin`
-      rm: function (params, cb) {
+      rm: function (info, cb) {
         // Get git branches and find matches
       }
     }
