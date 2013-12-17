@@ -1,7 +1,7 @@
 {
   "name": "completion",
   "description": "Completion library for words, commands, and sentences",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "https://github.com/twolfson/completion",
   "author": {
     "name": "Todd Wolfson",
