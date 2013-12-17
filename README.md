@@ -24,17 +24,19 @@ Install the module with: `npm install completion`
 var Completion = require('completion');
 var completion = new Completion({
   git: {
-    checkout: function (params, cb) {
+    checkout: function (info, cb) {
       // For `git checkout dev/|`
-      // params.line = 'git checkout dev'
-      // params.cursor = 17
+      // info.words.value = ['git', 'checkout', 'dev/']
+      // info.word.partialLeft = 'dev/'
       getGitBranches(function (err, allBranches) {
         if (err) {
           return cb(err);
         }
 
+        var partialLeftWord = info.word.partialLeft;
         var branches = allBranches.filter(function (branch) {
-          return params.line.match(branch);
+          // 'chec' === 'chec' (from 'checkout')
+          return partialLeftWord === branch.substr(0, partialLeftWord.length);
         });
         cb(null, branches);
       });
