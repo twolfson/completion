@@ -113,7 +113,7 @@ describe('A terminal command', function () {
   });
 });
 
-describe('A terminal command with whitespace', function () {
+describe.only('A terminal command with whitespace', function () {
   before(function () {
     this.params = testUtils.commandToParams('npm publish |');
     this.expected = [];
