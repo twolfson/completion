@@ -83,7 +83,9 @@ describe('A partial command in junction with the item', function () {
 
   describe('being completed', function () {
     // completeCommand();
-    it('returns the command\'s match', assertExpected);
+    it.skip('returns the command\'s match', function () {
+      // assert.deepEqual(this.results, ['publish']);
+    });
   });
 });
 
@@ -100,7 +102,9 @@ describe('A terminal command', function () {
 
   describe('being completed', function () {
     // completeCommand();
-    it('returns the command (for spacing)', assertExpected);
+    it.skip('returns the command (for spacing)', function () {
+      // assert.deepEqual(this.results, ['publish']);
+    });
   });
 });
 
@@ -117,7 +121,9 @@ describe('A terminal command with whitespace', function () {
 
   describe('being completed', function () {
     // completeCommand();
-    it('returns nothing', assertExpected);
+    it.skip('returns nothing', function () {
+      // assert.deepEqual(this.results, ['publish']);
+    });
   });
 });
 
@@ -136,6 +142,8 @@ describe('A terminal command with a completion function', function () {
 
   describe('being completed', function () {
     // completeCommand();
-    it('returns the results of the completion', assertExpected);
+    it.skip('returns the results of the completion', function () {
+      // assert.deepEqual(this.results, ['publish']);
+    });
   });
 });
