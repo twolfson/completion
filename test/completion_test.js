@@ -103,41 +103,35 @@ describe('A terminal command', function () {
 });
 
 describe('A terminal command with whitespace', function () {
-  before(function () {
-    this.params = cursorUtils.splitAtCursor('npm publish |');
-    this.expected = [];
-    completionUtils.init({
-      npm: {
-        publish: null
-      }
-    });
+ completionUtils.init({
+    npm: {
+      publish: null
+    }
   });
 
   describe('being completed', function () {
-    // completionUtils.completeCommand();
-    it.skip('returns nothing', function () {
-      // assert.deepEqual(this.results, ['publish']);
+    completionUtils.completeCommand('npm publish |');
+
+    it('returns nothing', function () {
+      assert.deepEqual(this.results, []);
     });
   });
 });
 
 describe('A terminal command with a completion function', function () {
-  before(function () {
-    this.params = cursorUtils.splitAtCursor('git checkout hello|');
-    this.expected = ['hello-world', 'hello-there'];
-    completionUtils.init({
-      git: {
-        checkout: function (params, cb) {
-          cb(null, ['hello-world', 'hello-there']);
-        }
+  completionUtils.init({
+    git: {
+      checkout: function (params, cb) {
+        cb(null, ['hello-world', 'hello-there']);
       }
-    });
+    }
   });
 
   describe('being completed', function () {
-    // completionUtils.completeCommand();
-    it.skip('returns the results of the completion', function () {
-      // assert.deepEqual(this.results, ['publish']);
+    completionUtils.completeCommand('git checkout hello|');
+
+    it('returns the results of the completion', function () {
+      assert.deepEqual(this.results, ['hello-world', 'hello-there']);
     });
   });
 });
