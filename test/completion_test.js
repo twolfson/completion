@@ -1,34 +1,54 @@
+// Load in dependencies
 var assert = require('assert');
 var Completion = require('../');
 var cursorUtils = require('./utils/cursor');
 
-function completeCommand() {
-  before(function (done) {
-    var that = this;
-    this.completion.complete(this.params, function (err, results) {
-      that.actual = results;
-      done(err);
+// Define set of utilities for `completion`
+var completionUtils = {
+  _completeParams: function (params) {
+    return function (done) {
+      var that = this;
+      this.completion.complete(params, function (err, results) {
+        that.results = results;
+        done(err);
+      });
+    };
+  },
+  _cleanupCompleteParams: function () {
+    return function () {
+      delete this.results;
+    };
+  },
+  completeCommand: function (command) {
+    before(function (done) {
+      var params = cursorUtils.splitAtCursor(command);
+      return completionUtils._completeParams(params).call(this, done);
     });
-  });
-}
+    after(_cleanupCompleteParams());
+  },
+  init: function (params) {
+    before(function initCompletion () {
+      this.completion = new Completion(params);
+    });
+    after(function cleanupCompletion () {
+      delete this.completion;
+    });
+  }
+};
 
 function assertExpected() {
   assert.deepEqual(this.actual, this.expected);
 }
 
-describe('A partial command with one completion match', function () {
-  before(function () {
-    this.params = cursorUtils.splitAtCursor('npm pub|');
-    this.expected = ['publish'];
-    this.completion = new Completion({
-      npm: {
-        publish: null
-      }
-    });
+describe.only('A partial command with one completion match', function () {
+  completionUtils.init({
+    npm: {
+      publish: null
+    }
   });
 
   describe('being completed', function () {
-    completeCommand();
+    completedUtils.complete
     it('returns its match', assertExpected);
   });
 });
@@ -50,7 +70,7 @@ describe('A partial command with multiple completions', function () {
   });
 
   describe('being completed', function () {
-    completeCommand();
+    // completeCommand();
     it('returns all of its matches', assertExpected);
   });
 });
@@ -72,7 +92,7 @@ describe('A partial command in junction with the item', function () {
   });
 
   describe('being completed', function () {
-    completeCommand();
+    // completeCommand();
     it('returns the command\'s match', assertExpected);
   });
 });
@@ -89,7 +109,7 @@ describe('A terminal command', function () {
   });
 
   describe('being completed', function () {
-    completeCommand();
+    // completeCommand();
     it('returns the command (for spacing)', assertExpected);
   });
 });
@@ -106,7 +126,7 @@ describe('A terminal command with whitespace', function () {
   });
 
   describe('being completed', function () {
-    completeCommand();
+    // completeCommand();
     it('returns nothing', assertExpected);
   });
 });
@@ -125,7 +145,7 @@ describe('A terminal command with a completion function', function () {
   });
 
   describe('being completed', function () {
-    completeCommand();
+    // completeCommand();
     it('returns the results of the completion', assertExpected);
   });
 });
