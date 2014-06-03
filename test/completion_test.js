@@ -5,26 +5,18 @@ var cursorUtils = require('./utils/cursor');
 
 // Define set of utilities for `completion`
 var completionUtils = {
-  _completeParams: function (params) {
-    return function (done) {
+  completeCommand: function (command) {
+    before(function (done) {
+      var params = cursorUtils.splitAtCursor(command);
       var that = this;
       this.completion.complete(params, function (err, results) {
         that.results = results;
         done(err);
       });
-    };
-  },
-  _cleanupCompleteParams: function () {
-    return function () {
-      delete this.results;
-    };
-  },
-  completeCommand: function (command) {
-    before(function (done) {
-      var params = cursorUtils.splitAtCursor(command);
-      return completionUtils._completeParams(params).call(this, done);
     });
-    after(_cleanupCompleteParams());
+    after(function () {
+      delete this.results;
+    });
   },
   init: function (params) {
     before(function initCompletion () {
