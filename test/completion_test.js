@@ -66,44 +66,38 @@ describe('A partial command with multiple completions', function () {
 });
 
 describe('A partial command in junction with the item', function () {
-  before(function () {
-    this.params = cursorUtils.splitAtCursor('git che|world');
-    this.expected = ['checkout', 'cherry-pick'];
-    this.completion = new Completion({
-      git: {
-        checkout: function (params, cb) {
-          cb(null, ['hello.world']);
-        },
-        'cherry-pick': function (params, cb) {
-          cb(null, ['maraschino']);
-        }
+  completionUtils.init({
+    git: {
+      checkout: function (params, cb) {
+        cb(null, ['hello.world']);
+      },
+      'cherry-pick': function (params, cb) {
+        cb(null, ['maraschino']);
       }
-    });
+    }
   });
 
   describe('being completed', function () {
-    // completeCommand();
-    it.skip('returns the command\'s match', function () {
-      // assert.deepEqual(this.results, ['publish']);
+    completionUtils.completeCommand('git che|world');
+
+    it('returns the command\'s match', function () {
+      assert.deepEqual(this.results, ['checkout', 'cherry-pick']);
     });
   });
 });
 
 describe('A terminal command', function () {
-  before(function () {
-    this.params = cursorUtils.splitAtCursor('npm publish|');
-    this.expected = ['publish'];
-    this.completion = new Completion({
-      npm: {
-        publish: null
-      }
-    });
+  completionUtils.init({
+    npm: {
+      publish: null
+    }
   });
 
   describe('being completed', function () {
-    // completeCommand();
-    it.skip('returns the command (for spacing)', function () {
-      // assert.deepEqual(this.results, ['publish']);
+    completionUtils.completeCommand('npm publish|');
+
+    it('returns the command (for spacing)', function () {
+      assert.deepEqual(this.results, ['publish']);
     });
   });
 });
@@ -112,7 +106,7 @@ describe('A terminal command with whitespace', function () {
   before(function () {
     this.params = cursorUtils.splitAtCursor('npm publish |');
     this.expected = [];
-    this.completion = new Completion({
+    completionUtils.init({
       npm: {
         publish: null
       }
@@ -120,7 +114,7 @@ describe('A terminal command with whitespace', function () {
   });
 
   describe('being completed', function () {
-    // completeCommand();
+    // completionUtils.completeCommand();
     it.skip('returns nothing', function () {
       // assert.deepEqual(this.results, ['publish']);
     });
@@ -131,7 +125,7 @@ describe('A terminal command with a completion function', function () {
   before(function () {
     this.params = cursorUtils.splitAtCursor('git checkout hello|');
     this.expected = ['hello-world', 'hello-there'];
-    this.completion = new Completion({
+    completionUtils.init({
       git: {
         checkout: function (params, cb) {
           cb(null, ['hello-world', 'hello-there']);
@@ -141,7 +135,7 @@ describe('A terminal command with a completion function', function () {
   });
 
   describe('being completed', function () {
-    // completeCommand();
+    // completionUtils.completeCommand();
     it.skip('returns the results of the completion', function () {
       // assert.deepEqual(this.results, ['publish']);
     });
