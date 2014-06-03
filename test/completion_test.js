@@ -2,25 +2,6 @@ var assert = require('assert');
 var Completion = require('../');
 var cursorUtils = require('./utils/cursor');
 
-// DEV: Internal util test
-// TODO: We should break this into another lib
-describe('A command', function () {
-  before(function () {
-    this.command = 'git ad|README';
-  });
-  describe('broken down into parameters', function () {
-    before(function () {
-      this.params = cursorUtils.splitAtCursor(this.command);
-    });
-    it('is as expected', function () {
-      assert.deepEqual(this.params, {
-        cursor: 6,
-        line: 'git adREADME'
-      });
-    });
-  });
-});
-
 function completeCommand() {
   before(function (done) {
     var that = this;

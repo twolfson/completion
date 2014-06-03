@@ -10,3 +10,18 @@ exports.splitAtCursor = function (cmd) {
     line: parts.join('')
   };
 };
+
+// DEV: Internal util test
+// TODO: We should break this into another lib
+describe('A command', function () {
+  var command = 'git ad|README';
+  describe('broken down into parameters', function () {
+    it('is as expected', function () {
+      var actualParams = cursorUtils.splitAtCursor(command);
+      assert.deepEqual(actualParams, {
+        cursor: 6,
+        line: 'git adREADME'
+      });
+    });
+  });
+});
