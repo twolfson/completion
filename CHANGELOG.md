@@ -1,4 +1,6 @@
 # completion changelog
+0.3.2 - Refactored tests to be more utility based
+
 0.3.1 - Fixed node@0.8 for Travis CI
 
 0.3.0 - Removed dependency on `underscore.string`
