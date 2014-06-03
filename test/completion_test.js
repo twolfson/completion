@@ -40,8 +40,11 @@ describe.only('A partial command with one completion match', function () {
   });
 
   describe('being completed', function () {
-    completedUtils.complete
-    it('returns its match', assertExpected);
+    completionUtils.completeCommand('npm pub|');
+
+    it('returns its match', function () {
+      assert.deepEqual(this.results, ['publish']);
+    });
   });
 });
 
