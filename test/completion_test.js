@@ -28,11 +28,7 @@ var completionUtils = {
   }
 };
 
-function assertExpected() {
-  assert.deepEqual(this.actual, this.expected);
-}
-
-describe.only('A partial command with one completion match', function () {
+describe('A partial command with one completion match', function () {
   completionUtils.init({
     npm: {
       publish: null
@@ -49,24 +45,23 @@ describe.only('A partial command with one completion match', function () {
 });
 
 describe('A partial command with multiple completions', function () {
-  before(function () {
-    this.params = cursorUtils.splitAtCursor('git ch|');
-    this.expected = ['checkout', 'cherry-pick'];
-    this.completion = new Completion({
-      git: {
-        checkout: function (params, cb) {
-          cb(null, ['hello.world']);
-        },
-        'cherry-pick': function (params, cb) {
-          cb(null, ['maraschino']);
-        }
+  completionUtils.init({
+    git: {
+      checkout: function (params, cb) {
+        cb(null, ['hello.world']);
+      },
+      'cherry-pick': function (params, cb) {
+        cb(null, ['maraschino']);
       }
-    });
+    }
   });
 
   describe('being completed', function () {
-    // completeCommand();
-    it('returns all of its matches', assertExpected);
+    completionUtils.completeCommand('git ch|');
+
+    it('returns all of its matches', function () {
+      assert.deepEqual(this.results, ['checkout', 'cherry-pick']);
+    });
   });
 });
 
