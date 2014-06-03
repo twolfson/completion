@@ -12,7 +12,7 @@ function completeCommand() {
   });
 }
 
-function dev() {
+function assertExpected() {
   assert.deepEqual(this.actual, this.expected);
 }
 

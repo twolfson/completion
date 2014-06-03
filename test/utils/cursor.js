@@ -1,3 +1,6 @@
+// Load in dependencies
+var assert = require('assert');
+
 /**
  * Takes a command and breaks it down to its `completion` parameters
  * 'git ad|README' -> {line: 'git adREADME', cursor: 6}
@@ -17,7 +20,7 @@ describe('A command', function () {
   var command = 'git ad|README';
   describe('broken down into parameters', function () {
     it('is as expected', function () {
-      var actualParams = cursorUtils.splitAtCursor(command);
+      var actualParams = exports.splitAtCursor(command);
       assert.deepEqual(actualParams, {
         cursor: 6,
         line: 'git adREADME'
