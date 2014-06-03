@@ -1,6 +1,6 @@
 var assert = require('assert');
 var Completion = require('../');
-var testUtils = require('./utils/index');
+var cursorUtils = require('./utils/cursor');
 
 // DEV: Internal util test
 // TODO: We should break this into another lib
@@ -10,7 +10,7 @@ describe('A command', function () {
   });
   describe('broken down into parameters', function () {
     before(function () {
-      this.params = testUtils.commandToParams(this.command);
+      this.params = cursorUtils.splitAtCursor(this.command);
     });
     it('is as expected', function () {
       assert.deepEqual(this.params, {
@@ -31,13 +31,13 @@ function completeCommand() {
   });
 }
 
-function assertExpected() {
+function dev() {
   assert.deepEqual(this.actual, this.expected);
 }
 
 describe('A partial command with one completion match', function () {
   before(function () {
-    this.params = testUtils.commandToParams('npm pub|');
+    this.params = cursorUtils.splitAtCursor('npm pub|');
     this.expected = ['publish'];
     this.completion = new Completion({
       npm: {
@@ -54,7 +54,7 @@ describe('A partial command with one completion match', function () {
 
 describe('A partial command with multiple completions', function () {
   before(function () {
-    this.params = testUtils.commandToParams('git ch|');
+    this.params = cursorUtils.splitAtCursor('git ch|');
     this.expected = ['checkout', 'cherry-pick'];
     this.completion = new Completion({
       git: {
@@ -76,7 +76,7 @@ describe('A partial command with multiple completions', function () {
 
 describe('A partial command in junction with the item', function () {
   before(function () {
-    this.params = testUtils.commandToParams('git che|world');
+    this.params = cursorUtils.splitAtCursor('git che|world');
     this.expected = ['checkout', 'cherry-pick'];
     this.completion = new Completion({
       git: {
@@ -98,7 +98,7 @@ describe('A partial command in junction with the item', function () {
 
 describe('A terminal command', function () {
   before(function () {
-    this.params = testUtils.commandToParams('npm publish|');
+    this.params = cursorUtils.splitAtCursor('npm publish|');
     this.expected = ['publish'];
     this.completion = new Completion({
       npm: {
@@ -115,7 +115,7 @@ describe('A terminal command', function () {
 
 describe('A terminal command with whitespace', function () {
   before(function () {
-    this.params = testUtils.commandToParams('npm publish |');
+    this.params = cursorUtils.splitAtCursor('npm publish |');
     this.expected = [];
     this.completion = new Completion({
       npm: {
@@ -132,7 +132,7 @@ describe('A terminal command with whitespace', function () {
 
 describe('A terminal command with a completion function', function () {
   before(function () {
-    this.params = testUtils.commandToParams('git checkout hello|');
+    this.params = cursorUtils.splitAtCursor('git checkout hello|');
     this.expected = ['hello-world', 'hello-there'];
     this.completion = new Completion({
       git: {
