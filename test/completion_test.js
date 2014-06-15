@@ -146,8 +146,6 @@ describe('A command with options', function () {
         var leftmostWord = remainingLeftWords.shift();
         params.words.matchedLeft.push(leftmostWord);
 
-        console.log(params);
-
         this.completeInfo(params, cb);
       },
       checkout: function (params, cb) {
