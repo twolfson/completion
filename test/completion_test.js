@@ -141,12 +141,13 @@ describe.only('A command with options', function () {
   completionUtils.init({
     git: {
       '-b': function (params, cb) {
-        // If there are no more parameters after this, exit early
+        // Shift one parameter from right to left (the `-b` to be specific)
         params = deepClone(params);
         var remainingLeftWords = params.words.remainingLeft;
         var leftmostWord = remainingLeftWords.shift();
         params.words.matchedLeft.push(leftmostWord);
 
+        // Attempt to complete once again from `git's` context
         this.parentNode.completeInfo(params, cb);
       },
       checkout: function (params, cb) {
