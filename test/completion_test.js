@@ -137,7 +137,25 @@ describe('A terminal command with a completion function', function () {
   });
 });
 
-describe('A command with options', function () {
+describe('A command with a completion function', function () {
+  completionUtils.init({
+    git: {
+      checkout: function (params, cb) {
+        cb(null, ['hello-world', 'hello-there']);
+      }
+    }
+  });
+
+  describe('completed after the command has already been used', function () {
+    completionUtils.completeCommand('git checkout something else');
+
+    it('does not reply with the commands results', function () {
+      assert.deepEqual(this.results, []);
+    });
+  });
+});
+
+describe.skip('A command with options', function () {
   completionUtils.init({
     git: {
       '-b': function (params, cb) {
