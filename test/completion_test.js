@@ -137,16 +137,22 @@ describe('A terminal command with a completion function', function () {
   });
 });
 
-describe('A command with options', function () {
+describe.only('A command with options', function () {
   completionUtils.init({
     git: {
       '-b': function (params, cb) {
-        params = deepClone(params);
-        var remainingLeftWords = params.words.remainingLeft;
-        var leftmostWord = remainingLeftWords.shift();
-        params.words.matchedLeft.push(leftmostWord);
+        // If there are no more parameters after this, exit early
+        if (params.words.remainingLeft.length <= 1) {
+          cb(null, []);
+        // Otherwise, recurse on the next word
+        } else {
+          params = deepClone(params);
+          var remainingLeftWords = params.words.remainingLeft;
+          var leftmostWord = remainingLeftWords.shift();
+          params.words.matchedLeft.push(leftmostWord);
 
-        this.completeInfo(params, cb);
+          this.completeInfo(params, cb);
+        }
       },
       checkout: function (params, cb) {
         cb(null, ['hello-world', 'hello-there']);
