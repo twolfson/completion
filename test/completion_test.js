@@ -1,5 +1,6 @@
 // Load in dependencies
 var assert = require('assert');
+var deepClone = require('clone');
 var Completion = require('../');
 var cursorUtils = require('./utils/cursor');
 
@@ -132,6 +133,34 @@ describe('A terminal command with a completion function', function () {
 
     it('returns the results of the completion', function () {
       assert.deepEqual(this.results, ['hello-world', 'hello-there']);
+    });
+  });
+});
+
+describe('A command with options', function () {
+  completionUtils.init({
+    git: {
+      '-b': function (params, cb) {
+        params = deepClone(params);
+        var remainingLeftWords = params.words.remainingLeft;
+        var leftmostWord = remainingLeftWords.shift();
+        params.words.matchedLeft.push(leftmostWord);
+
+        console.log(params);
+
+        this.completeInfo(params, cb);
+      },
+      checkout: function (params, cb) {
+        cb(null, ['hello-world', 'hello-there']);
+      }
+    }
+  });
+
+  describe('being completed', function () {
+    completionUtils.completeCommand('git -b chec|');
+
+    it('returns the command without completion options', function () {
+      assert.deepEqual(this.results, ['checkout']);
     });
   });
 });
