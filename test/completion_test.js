@@ -143,6 +143,7 @@ describe('A command with options', function () {
       '-b': function (params, cb) {
         // The `-b` has already been shifted because we matched `-b`
         // As a result, attempt to complete once again from `git's` context
+        console.log(params.words);
         this.parentNode.completeInfo(params, cb);
       },
       checkout: function (params, cb) {
@@ -159,7 +160,7 @@ describe('A command with options', function () {
     });
   });
 
-  describe('being completed with a non-terminal command', function () {
+  describe.only('being completed with a non-terminal command', function () {
     completionUtils.completeCommand('git -b checkout hello|');
 
     it('returns the command without completion options', function () {
