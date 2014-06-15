@@ -151,11 +151,19 @@ describe('A command with options', function () {
     }
   });
 
-  describe('being completed', function () {
+  describe('being completed with a terminal command', function () {
     completionUtils.completeCommand('git -b chec|');
 
     it('returns the command without completion options', function () {
       assert.deepEqual(this.results, ['checkout']);
+    });
+  });
+
+  describe('being completed with a non-terminal command', function () {
+    completionUtils.completeCommand('git -b checkout hello|');
+
+    it('returns the command without completion options', function () {
+      assert.deepEqual(this.results, ['hello-world', 'hello-there']);
     });
   });
 });
