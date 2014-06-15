@@ -137,15 +137,12 @@ describe('A terminal command with a completion function', function () {
   });
 });
 
-describe.only('A command with options', function () {
+describe('A command with options', function () {
   completionUtils.init({
     git: {
       '-b': function (params, cb) {
         // Shift one parameter from right to left (the `-b` to be specific)
-        params = deepClone(params);
-        var remainingLeftWords = params.words.remainingLeft;
-        var leftmostWord = remainingLeftWords.shift();
-        params.words.matchedLeft.push(leftmostWord);
+        params = this.matchLeftWord(params);
 
         // Attempt to complete once again from `git's` context
         this.parentNode.completeInfo(params, cb);
