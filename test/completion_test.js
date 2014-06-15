@@ -166,4 +166,12 @@ describe('A command with options', function () {
       assert.deepEqual(this.results, ['hello-world', 'hello-there']);
     });
   });
+
+  describe('being completed with a command followed by an option', function () {
+    completionUtils.completeCommand('git checkout -b wat|');
+
+    it('returns the command without completion options', function () {
+      assert.deepEqual(this.results, []);
+    });
+  });
 });
