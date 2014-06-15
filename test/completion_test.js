@@ -141,10 +141,8 @@ describe('A command with options', function () {
   completionUtils.init({
     git: {
       '-b': function (params, cb) {
-        // Shift one parameter from right to left (the `-b` to be specific)
-        params = this.matchLeftWord(params);
-
-        // Attempt to complete once again from `git's` context
+        // The `-b` has already been shifted because we matched `-b`
+        // As a result, attempt to complete once again from `git's` context
         this.parentNode.completeInfo(params, cb);
       },
       checkout: function (params, cb) {
