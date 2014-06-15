@@ -142,6 +142,7 @@ describe.only('A command with options', function () {
     git: {
       '-b': function (params, cb) {
         // If there are no more parameters after this, exit early
+        console.log('left', params.words.remainingLeft);
         if (params.words.remainingLeft.length <= 1) {
           cb(null, []);
         // Otherwise, recurse on the next word
@@ -151,7 +152,7 @@ describe.only('A command with options', function () {
           var leftmostWord = remainingLeftWords.shift();
           params.words.matchedLeft.push(leftmostWord);
 
-          this.completeInfo(params, cb);
+          this.parentNode.completeInfo(params, cb);
         }
       },
       checkout: function (params, cb) {
