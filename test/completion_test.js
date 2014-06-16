@@ -29,7 +29,7 @@ var completionUtils = {
   }
 };
 
-describe('A partial command with one completion match', function () {
+describe.only('A partial command with one completion match', function () {
   completionUtils.init({
     name: 'npm',
     commands: [{
