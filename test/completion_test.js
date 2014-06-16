@@ -232,7 +232,7 @@ describe('A command with non-terminal options', function () {
         completion: function (params, cb) {
           // The `-b` has already been shifted because we matched `-b`
           // As a result, attempt to complete once again from `git's` context
-          this.resolveCompletion(params, cb);
+          this.resolveInfo(params, cb);
         }
       }],
       completion: function (params, cb) {
@@ -257,7 +257,7 @@ describe('A command with non-terminal command options', function () {
       name: '--dry-run',
       completion: function (params, cb) {
         // --dry-run has already been shifted, continue resolving
-        this.resolveCompletion(params, cb);
+        this.resolveInfo(params, cb);
       }
     }],
     commands: [{
