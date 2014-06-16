@@ -155,7 +155,7 @@ describe('A command with a completion function', function () {
   });
 });
 
-describe.only('A command with options', function () {
+describe('A command with options', function () {
   completionUtils.init({
     git: {
       '-b': Completion.optional(function (params, cb) {
@@ -185,8 +185,9 @@ describe.only('A command with options', function () {
     });
   });
 
-  describe('being completed with a command followed by an option', function () {
-    completionUtils.completeCommand('git checkout -b wat|');
+  // DEV: This tests that only `optional` functions are run when they are non-terminal
+  describe('being completed with a command followed by an unspecified option', function () {
+    completionUtils.completeCommand('git checkout -D wat|');
 
     it('returns the command without completion options', function () {
       assert.deepEqual(this.results, []);
