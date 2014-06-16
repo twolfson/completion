@@ -29,7 +29,7 @@ var completionUtils = {
   }
 };
 
-describe.only('A partial command with one completion match', function () {
+describe('A partial command with one completion match', function () {
   completionUtils.init({
     name: 'npm',
     commands: [{
@@ -222,7 +222,7 @@ describe('A command with terminal options', function () {
   });
 });
 
-describe('A command with non-terminal options', function () {
+describe.only('A command with non-terminal options', function () {
   completionUtils.init({
     name: 'git',
     commands: [{
@@ -232,7 +232,7 @@ describe('A command with non-terminal options', function () {
         completion: function (params, cb) {
           // The `-b` has already been shifted because we matched `-b`
           // As a result, attempt to complete once again from `git's` context
-          this.completeInfo(params, cb);
+          this.resolveCompletion(params, cb);
         }
       }],
       completion: function (params, cb) {
