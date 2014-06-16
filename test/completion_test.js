@@ -31,9 +31,18 @@ var completionUtils = {
 
 describe('A partial command with one completion match', function () {
   completionUtils.init({
-    command: 'npm',
-    children: [{
-      command: 'publish'
+    name: 'npm',
+    options: [{
+      name: '--help'
+    }],
+    commands: [{
+      name: 'publish',
+      options: [{
+        name: '--force',
+        completion: function () {
+          // noop
+        }
+      }]
     }]
   });
 
