@@ -193,4 +193,13 @@ describe('A command with options', function () {
       assert.deepEqual(this.results, []);
     });
   });
+
+  // TODO: How are we going to allow a terminal command to accept options. fuck.
+  describe.only('being completed with a command followed by an valid option', function () {
+    completionUtils.completeCommand('git checkout -b hello|');
+
+    it('returns the command without completion options', function () {
+      assert.deepEqual(this.results, ['hello-world', 'hello-there']);
+    });
+  });
 });
