@@ -170,6 +170,26 @@ describe('A command with a completion function', function () {
   });
 });
 
+describe('A many level command', function () {
+  completionUtils.init({
+    name: 'git',
+    commands: [{
+      name: 'remote',
+      commands: [{
+        name: 'add'
+      }]
+    }]
+  });
+
+  describe('when completing an incomplete command', function () {
+    completionUtils.completeCommand('git remote a|');
+
+    it('returns the expected command', function () {
+      assert.deepEqual(this.results, ['add']);
+    });
+  });
+});
+
 describe.skip('A command with terminal options', function () {
   completionUtils.init({
     name: 'git',
