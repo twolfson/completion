@@ -170,41 +170,89 @@ describe('A command with a completion function', function () {
   });
 });
 
-describe.skip('A command with options', function () {
+describe.skip('A command with terminal options', function () {
   completionUtils.init({
-    git: {
-      '-b': function (params, cb) {
-        // The `-b` has already been shifted because we matched `-b`
-        // As a result, attempt to complete once again from `git's` context
-        this.parentNode.completeInfo(params, cb);
-      },
-      checkout: function (params, cb) {
+    name: 'git',
+    options: [{
+      // Do not complete anything new after `help`
+      name: '--help'
+    }],
+    commands: [{
+      name: 'checkout',
+      completion: function (params, cb) {
         cb(null, ['hello-world', 'hello-there']);
       }
-    }
+    }]
   });
 
-  describe('being completed with a terminal command', function () {
-    completionUtils.completeCommand('git -b chec|');
+  describe('completing a terminal option followed by a command', function () {
+    completionUtils.completeCommand('git --help chec|');
 
-    it('returns the command without completion options', function () {
-      assert.deepEqual(this.results, ['checkout']);
-    });
-  });
-
-  describe('being completed with a non-terminal command', function () {
-    completionUtils.completeCommand('git -b checkout hello|');
-
-    it('returns the command without completion options', function () {
-      assert.deepEqual(this.results, ['hello-world', 'hello-there']);
-    });
-  });
-
-  describe('being completed with a command followed by an option', function () {
-    completionUtils.completeCommand('git checkout -b wat|');
-
-    it('returns the command without completion options', function () {
+    it('does not return any matching commands', function () {
       assert.deepEqual(this.results, []);
+    });
+  });
+
+  describe('completing an option', function () {
+    completionUtils.completeCommand('git --he|');
+
+    it('does not return any values', function () {
+      assert.deepEqual(this.results, []);
+    });
+  });
+});
+
+describe('A command with non-terminal options', function () {
+  completionUtils.init({
+    name: 'git',
+    commands: [{
+      name: 'checkout',
+      options: [{
+        name: '-b',
+        completion: function (params, cb) {
+          // The `-b` has already been shifted because we matched `-b`
+          // As a result, attempt to complete once again from `git's` context
+          this.parentNode.complete(params, cb);
+        }
+      }],
+      completion: function (params, cb) {
+        cb(null, ['hello-world', 'hello-there']);
+      }
+    }]
+  });
+
+  describe('completing a command\'s values', function () {
+    completionUtils.completeCommand('git checkout -b hello|');
+
+    it('returns matching values', function () {
+      cb(null, ['hello-world', 'hello-there']);
+    });
+  });
+});
+
+describe('A command with non-terminal command options', function () {
+  completionUtils.init({
+    name: 'git',
+    options: [{
+      name: '--dry-run',
+      completion: function (params, cb) {
+        // --dry-run has already been shifted, continue resolving
+        this.parentNode.complete(params, cb);
+      }
+    }],
+    commands: [{
+      name: 'checkout',
+      completion: function (params, cb) {
+        cb(null, ['hello-world', 'hello-there']);
+      }
+    }]
+  });
+
+  describe('completing a command', function () {
+    completionUtils.completeCommand('git --dry-run chec|');
+
+    it('returns a matching command', function () {
+      cb(null, ['checkout']);
     });
   });
 });
