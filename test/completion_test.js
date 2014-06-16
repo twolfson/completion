@@ -232,7 +232,7 @@ describe('A command with non-terminal options', function () {
         completion: function (params, cb) {
           // The `-b` has already been shifted because we matched `-b`
           // As a result, attempt to complete once again from `git's` context
-          this.parentNode.completeInfo(params, cb);
+          this.completeInfo(params, cb);
         }
       }],
       completion: function (params, cb) {
@@ -245,7 +245,7 @@ describe('A command with non-terminal options', function () {
     completionUtils.completeCommand('git checkout -b hello|');
 
     it('returns matching values', function () {
-      cb(null, ['hello-world', 'hello-there']);
+      assert.deepEqual(this.results, ['hello-world', 'hello-there']);
     });
   });
 });
@@ -257,7 +257,7 @@ describe('A command with non-terminal command options', function () {
       name: '--dry-run',
       completion: function (params, cb) {
         // --dry-run has already been shifted, continue resolving
-        this.parentNode.completeInfo(params, cb);
+        this.completeInfo(params, cb);
       }
     }],
     commands: [{
@@ -272,7 +272,7 @@ describe('A command with non-terminal command options', function () {
     completionUtils.completeCommand('git --dry-run chec|');
 
     it('returns a matching command', function () {
-      cb(null, ['checkout']);
+      assert.deepEqual(this.results, ['checkout']);
     });
   });
 });
