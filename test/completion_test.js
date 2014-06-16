@@ -29,7 +29,7 @@ var completionUtils = {
   }
 };
 
-describe.only('A partial command with one completion match', function () {
+describe('A partial command with one completion match', function () {
   completionUtils.init({
     name: 'npm',
     commands: [{
@@ -222,7 +222,7 @@ describe.skip('A command with terminal options', function () {
   });
 });
 
-describe('A command with non-terminal options', function () {
+describe.skip('A command with non-terminal options', function () {
   completionUtils.init({
     name: 'git',
     commands: [{
@@ -250,7 +250,7 @@ describe('A command with non-terminal options', function () {
   });
 });
 
-describe('A command with non-terminal command options', function () {
+describe.skip('A command with non-terminal command options', function () {
   completionUtils.init({
     name: 'git',
     options: [{
