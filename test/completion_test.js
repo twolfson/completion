@@ -222,7 +222,7 @@ describe('A command with terminal options', function () {
   });
 });
 
-describe.only('A command with non-terminal options', function () {
+describe('A command with non-terminal options', function () {
   completionUtils.init({
     name: 'git',
     commands: [{
@@ -257,7 +257,7 @@ describe('A command with non-terminal command options', function () {
       name: '--dry-run',
       completion: function (params, cb) {
         // --dry-run has already been shifted, continue resolving
-        this.completeInfo(params, cb);
+        this.resolveCompletion(params, cb);
       }
     }],
     commands: [{
