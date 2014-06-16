@@ -48,14 +48,18 @@ describe('A partial command with one completion match', function () {
 
 describe('A partial command with multiple completions', function () {
   completionUtils.init({
-    git: {
-      checkout: function (params, cb) {
+    name: 'git',
+    commands: [{
+      name: 'checkout',
+      completion: function (params, cb) {
         cb(null, ['hello.world']);
-      },
-      'cherry-pick': function (params, cb) {
+      }
+    }, {
+      name: 'cherry-pick',
+      completion: function (params, cb) {
         cb(null, ['maraschino']);
       }
-    }
+    }]
   });
 
   describe('being completed', function () {
@@ -69,14 +73,18 @@ describe('A partial command with multiple completions', function () {
 
 describe('A partial command in junction with the item', function () {
   completionUtils.init({
-    git: {
-      checkout: function (params, cb) {
+    name: 'git',
+    commands: [{
+      name: 'checkout',
+      completion: function (params, cb) {
         cb(null, ['hello.world']);
-      },
-      'cherry-pick': function (params, cb) {
+      }
+    }, {
+      name: 'cherry-pick',
+      completion: function (params, cb) {
         cb(null, ['maraschino']);
       }
-    }
+    }]
   });
 
   describe('being completed', function () {
@@ -90,9 +98,10 @@ describe('A partial command in junction with the item', function () {
 
 describe('A terminal command', function () {
   completionUtils.init({
-    npm: {
-      publish: null
-    }
+    name: 'npm',
+    commands: [{
+      name: 'publish'
+    }]
   });
 
   describe('being completed', function () {
@@ -105,10 +114,11 @@ describe('A terminal command', function () {
 });
 
 describe('A terminal command with whitespace', function () {
- completionUtils.init({
-    npm: {
-      publish: null
-    }
+  completionUtils.init({
+    name: 'npm',
+    commands: [{
+      name: 'publish'
+    }]
   });
 
   describe('being completed', function () {
@@ -122,11 +132,13 @@ describe('A terminal command with whitespace', function () {
 
 describe('A terminal command with a completion function', function () {
   completionUtils.init({
-    git: {
-      checkout: function (params, cb) {
+    name: 'git',
+    commands: [{
+      name: 'checkout',
+      completion: function (params, cb) {
         cb(null, ['hello-world', 'hello-there']);
       }
-    }
+    }]
   });
 
   describe('being completed', function () {
@@ -140,11 +152,13 @@ describe('A terminal command with a completion function', function () {
 
 describe('A command with a completion function', function () {
   completionUtils.init({
-    git: {
-      checkout: function (params, cb) {
+    name: 'git',
+    commands: [{
+      name: 'checkout',
+      completion: function (params, cb) {
         cb(null, ['hello-world', 'hello-there']);
       }
-    }
+    }]
   });
 
   describe('completed after the command has already been used', function () {
