@@ -155,14 +155,14 @@ describe('A command with a completion function', function () {
   });
 });
 
-describe.skip('A command with options', function () {
+describe.only('A command with options', function () {
   completionUtils.init({
     git: {
-      '-b': function (params, cb) {
+      '-b': Completion.optional(function (params, cb) {
         // The `-b` has already been shifted because we matched `-b`
         // As a result, attempt to complete once again from `git's` context
         this.parentNode.completeInfo(params, cb);
-      },
+      }),
       checkout: function (params, cb) {
         cb(null, ['hello-world', 'hello-there']);
       }
