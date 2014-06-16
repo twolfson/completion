@@ -190,7 +190,7 @@ describe('A many level command', function () {
   });
 });
 
-describe.skip('A command with terminal options', function () {
+describe('A command with terminal options', function () {
   completionUtils.init({
     name: 'git',
     options: [{
@@ -222,7 +222,7 @@ describe.skip('A command with terminal options', function () {
   });
 });
 
-describe.skip('A command with non-terminal options', function () {
+describe('A command with non-terminal options', function () {
   completionUtils.init({
     name: 'git',
     commands: [{
@@ -232,7 +232,7 @@ describe.skip('A command with non-terminal options', function () {
         completion: function (params, cb) {
           // The `-b` has already been shifted because we matched `-b`
           // As a result, attempt to complete once again from `git's` context
-          this.parentNode.complete(params, cb);
+          this.parentNode.completeInfo(params, cb);
         }
       }],
       completion: function (params, cb) {
@@ -250,14 +250,14 @@ describe.skip('A command with non-terminal options', function () {
   });
 });
 
-describe.skip('A command with non-terminal command options', function () {
+describe('A command with non-terminal command options', function () {
   completionUtils.init({
     name: 'git',
     options: [{
       name: '--dry-run',
       completion: function (params, cb) {
         // --dry-run has already been shifted, continue resolving
-        this.parentNode.complete(params, cb);
+        this.parentNode.completeInfo(params, cb);
       }
     }],
     commands: [{
