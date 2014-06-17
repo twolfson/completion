@@ -124,6 +124,22 @@ this.matchLeftWord(info);
 info; // {words: {remainingLeft: ['world'], matchedLeft: ['hello']}}
 ```
 
+### `completion.completeLeftWord(leftWord, words)`
+Helper function to find words from `words` that start with `leftWord`
+
+- leftWord `String` - Word to match left content of
+    - `leftWord` gets its name from usually coming from `words.partialLeft`
+- words `String[]` - Array of words to filter against
+
+Returns:
+
+- matchedWords `String[]` - Matching words from `words` that start with `leftWord`
+
+```js
+this.completeLeftWord('hello', ['hello-world', 'hello-there', 'goodbye-moon']);
+// ['hello-world', 'hello-there'];
+```
+
 ### `completion.complete(params, cb)`
 Get potential completion matches
 
