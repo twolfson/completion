@@ -112,11 +112,11 @@ For options, it is often preferred to remove more words that are matched (e.g. `
 
 To create non-terminal options, we can use the [method `resolveInfo`][resolve-info] to keep on searching against the `remainingLeft` words.
 
-For completing partial matches, we provide the [`completeLeftWord` method][complete-left-word].
+For completing partial matches, we provide the [`matchLeftWord` method][match-left-word].
 
 [shift-left-word]:
 [resolve-info]:
-[complete-left-word]:
+[match-left-word]:
 
 ### `completion.shiftLeftWord(info)`
 Helper function to shift word from `info.words.remainingLeft` to `info.words.matchedLeft`
@@ -129,7 +129,7 @@ info = this.shiftLeftWord(info);
 info; // {words: {remainingLeft: ['world'], matchedLeft: ['hello']}}
 ```
 
-### `completion.completeLeftWord(leftWord, words)`
+### `completion.matchLeftWord(leftWord, words)`
 Helper function to find words from `words` that start with `leftWord`
 
 - leftWord `String` - Word to match left content of
@@ -141,7 +141,7 @@ Returns:
 - matchedWords `String[]` - Matching words from `words` that start with `leftWord`
 
 ```js
-this.completeLeftWord('hello', ['hello-world', 'hello-there', 'goodbye-moon']);
+this.matchLeftWord('hello', ['hello-world', 'hello-there', 'goodbye-moon']);
 // ['hello-world', 'hello-there'];
 ```
 
