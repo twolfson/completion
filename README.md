@@ -83,17 +83,27 @@ $ git checkout a|c
 Create a new `completion` instance
 
 - tree `Object` - Outline of program
-    - Each key represents a new command (e.g. `git`, `checkout`)
-    - Each value can be
-        - An object representing another layer of commands
-        - A function that will callback with potential matches
-            - The function should be error-first; have a signature of `function (info, cb)`
-            - info `Object` - Collection of distilled information
-                - The format will be the returned value from [twolfson/line-info][]
-            - cb `Function` - Error-first callback function to run with matches
-                - `cb` has a signature of `function (err, results)`
-        - `null` representing a terminal function which has no further predictive input
-            - **If you want to list out files, do so. Don't use `null` for that case.**
+    - name `String` - Command that is being executed
+    - options `Object[]` - Optional array of objects that represent options
+        - name `String` - Name of option (e.g. `--help`)
+        - completion `Function` - Optional function to complete the remainder of the invocation
+            - If no `completion` is specified, it is assumed this option is terminal and we will not recurse further
+            - Details on completion functions can be found below
+    - commands `Object[]` - Optional array of new `tree` instances to complete against
+        - This cannot exist on the same node as `completion` as they are contradictory
+    - completion `Function` - Optional completion function to determine results for a command
+        - Details on completion can be found below
+
+#### `completion` functions
+`options` and `commands` share a common completion function signature, `function (info, cb)`
+
+- info `Object` - Information about original input
+    - Content will be information from [twolfson/line-info][]
+    - We provide 2 additional properties
+        - words.matchedLeft `String[]` - Words matched thus far from `partialLeft` while walking the tree
+        - words.remainingLeft `String[]` - Unmatched words that need to be/can be matched against
+- cb `Function` - Error-first callback function to return matches via
+    - `cb` has a signature of `function (err, results)`
 
 [twolfson/line-info]: https://github.com/twolfson/line-info#lineinfoparams
 
