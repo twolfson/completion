@@ -118,7 +118,7 @@ To create non-terminal options, we can use the [method `resolveInfo`][resolve-in
 [match-left-word]: #completionmatchleftwordleftword-words
 [resolve-info]: #completionresolveinfoinfo-cb
 
-### `completion.shiftLeftWord(info)`
+#### `completion.shiftLeftWord(info)`
 Helper function to shift word from `info.words.remainingLeft` to `info.words.matchedLeft`
 
 - info `Object` - Information passed into `completion` functon
@@ -129,7 +129,7 @@ info = this.shiftLeftWord(info);
 info; // {words: {remainingLeft: ['world'], matchedLeft: ['hello']}}
 ```
 
-### `completion.matchLeftWord(leftWord, words)`
+#### `completion.matchLeftWord(leftWord, words)`
 Helper function to find words from `words` that start with `leftWord`
 
 - leftWord `String` - Word to match left content of
@@ -145,7 +145,7 @@ this.matchLeftWord('hello', ['hello-world', 'hello-there', 'goodbye-moon']);
 // ['hello-world', 'hello-there'];
 ```
 
-### `completion.complete(params, cb)`
+#### `completion.complete(params, cb)`
 Get potential completion matches for given parameters
 
 - params `Object` - Information similar to that passed in by `bash's` tab completion
@@ -154,7 +154,7 @@ Get potential completion matches for given parameters
 - cb `Function` - Error-first callback function that receives matches
     - `cb` should have a signature of `function (err, results)`
 
-### `completion.resolveInfo(info, cb)`
+#### `completion.resolveInfo(info, cb)`
 Recursively find matches against the `Completion's tree` with a given `info`
 
 - info `Object` - CLI information provided by [twolfson/line-info][]
