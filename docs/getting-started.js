@@ -15,7 +15,7 @@ var completion = new Completion({
 
         // Match 'dev/' === 'dev/' (from 'dev/hello')
         var partialLeftWord = info.word.partialLeft;
-        var branches = that.resolveLeftWord(partialLeftWord, allBranches);
+        var branches = that.matchLeftWord(partialLeftWord, allBranches);
         cb(null, branches);
       });
     }
