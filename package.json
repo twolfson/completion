@@ -29,8 +29,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "line-info": "~0.2.0",
-    "clone": "~0.1.16"
+    "line-info": "~0.2.0"
   },
   "devDependencies": {
     "mocha": "~1.11.0",
