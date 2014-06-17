@@ -86,7 +86,7 @@ Create a new `completion` instance
     - options `Object[]` - Optional array of objects that represent options
         - name `String` - Name of option (e.g. `--help`)
         - completion `Function` - Optional function to complete the remainder of the invocation
-            - If no `completion` is specified, it is assumed this option is terminal and we will not recurse further
+            - If no `completion` is specified, we assume this is terminal and stop recursing
             - Details on completion functions can be found below
     - commands `Object[]` - Optional array of new `tree` instances to complete against
         - This cannot exist on the same node as `completion` as they are contradictory
