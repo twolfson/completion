@@ -1,5 +1,5 @@
 var Completion = require('../../');
-var cursorUtils = require('./utils/cursor');
+var cursorUtils = require('./cursor');
 
 // Define set of utilities for `completion`
 exports.completeCommand = function (command) {
