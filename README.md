@@ -30,16 +30,15 @@ var completion = new Completion({
       // For `git checkout dev/|`
       // info.words.value = ['git', 'checkout', 'dev/']
       // info.word.partialLeft = 'dev/'
+      var that = this;
       getGitBranches(function (err, allBranches) {
         if (err) {
           return cb(err);
         }
 
+        // Match 'chec' === 'chec' (from 'checkout')
         var partialLeftWord = info.word.partialLeft;
-        var branches = allBranches.filter(function (branch) {
-          // 'chec' === 'chec' (from 'checkout')
-          return partialLeftWord === branch.substr(0, partialLeftWord.length);
-        });
+        var branches = that.resolveLeftWord(partialLeftWord, allBranches);
         cb(null, branches);
       });
     }
