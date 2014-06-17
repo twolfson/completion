@@ -87,11 +87,30 @@ Create a new `completion` instance
         - name `String` - Name of option (e.g. `--help`)
         - completion `Function` - Optional function to complete the remainder of the invocation
             - If no `completion` is specified, we assume this is terminal and stop recursing
-            - Details on completion functions can be found below
+            - More info is available in the [`commands/option completion` section][command-completion-section]
     - commands `Object[]` - Optional array of new `tree` instances to complete against
         - This cannot exist on the same node as `completion` as they are contradictory
     - completion `Function` - Optional completion function to determine results for a command
-        - Details on completion can be found below
+        - More info is available in the [`commands/option completion` section][command-completion-section]
+
+[command-completion-section]:
+
+#### `completion.complete(params, cb)`
+Get potential completion matches for given parameters
+
+- params `Object` - Information similar to that passed in by `bash's` tab completion
+    - line `String` - Input to complete against (similar to `COMP_LINE`)
+    - cursor `Number` - Index within `line` of the cursor (similar to `COMP_POINT`)
+- cb `Function` - Error-first callback function that receives matches
+    - `cb` should have a signature of `function (err, results)`
+
+#### `completion.resolveInfo(info, cb)`
+Recursively find matches against the `Completion's tree` with a given `info`
+
+- info `Object` - CLI information provided by [twolfson/line-info][]
+    - This is converted from `params` to its current equivalent by [twolfson/line-info][]
+- cb `Function` - Error first callback function that receives matches
+    - `cb` should be the same as in `completion.complete`
 
 #### `command/option completion` functions
 `options` and `commands` share a common completion function signature, `function (info, cb)`
@@ -144,23 +163,6 @@ Returns:
 this.matchLeftWord('hello', ['hello-world', 'hello-there', 'goodbye-moon']);
 // ['hello-world', 'hello-there'];
 ```
-
-#### `completion.complete(params, cb)`
-Get potential completion matches for given parameters
-
-- params `Object` - Information similar to that passed in by `bash's` tab completion
-    - line `String` - Input to complete against (similar to `COMP_LINE`)
-    - cursor `Number` - Index within `line` of the cursor (similar to `COMP_POINT`)
-- cb `Function` - Error-first callback function that receives matches
-    - `cb` should have a signature of `function (err, results)`
-
-#### `completion.resolveInfo(info, cb)`
-Recursively find matches against the `Completion's tree` with a given `info`
-
-- info `Object` - CLI information provided by [twolfson/line-info][]
-    - This is converted from `params` to its current equivalent by [twolfson/line-info][]
-- cb `Function` - Error first callback function that receives matches
-    - `cb` should be the same as in `completion.complete`
 
 ## Examples
 An example of `git` would be
