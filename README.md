@@ -99,7 +99,7 @@ Create a new `completion` instance
 - info `Object` - Information about original input
     - Content will be information from [twolfson/line-info][]
     - We provide 2 additional properties
-        - words.matchedLeft `String[]` - Words matched thus far from `partialLeft` while walking the tree
+        - words.matchedLeft `String[]` - Words matched far from `words.partialLeft` while walking the tree
         - words.remainingLeft `String[]` - Unmatched words that need to be/can be matched against
 - cb `Function` - Error-first callback function to return matches via
     - `cb` has a signature of `function (err, results)`
