@@ -1,4 +1,4 @@
-var Completion = require('../');
+var Completion = require('../../');
 var cursorUtils = require('./utils/cursor');
 
 // Define set of utilities for `completion`
