@@ -81,7 +81,7 @@ $ git checkout a|c
 ### `new Completion(tree)`
 Create a new `completion` instance
 
-- tree `Object` - Outline of program
+- tree `Object` - Outline of a program/command
     - name `String` - Command that is being executed
     - options `Object[]` - Optional array of objects that represent options
         - name `String` - Name of option (e.g. `--help`)
