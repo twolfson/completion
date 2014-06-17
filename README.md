@@ -82,7 +82,7 @@ $ git checkout a|c
 Create a new `completion` instance
 
 - tree `Object` - Outline of a program/command
-    - name `String` - Command that is being executed
+    - name `String` - Command that is being executed (e.g. `git`, `checkout`)
     - options `Object[]` - Optional array of objects that represent options
         - name `String` - Name of option (e.g. `--help`)
         - completion `Function` - Optional function to complete the remainder of the invocation
