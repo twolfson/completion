@@ -43,6 +43,9 @@
     "completion",
     "shell",
     "auto",
-    "tab"
+    "tab",
+    "cli",
+    "bash",
+    "zsh"
   ]
 }
