@@ -1,4 +1,6 @@
 # completion changelog
+1.0.1 - Rearranged documentation to make it more straightforward
+
 1.0.0 - Reworked data structure to support options
 
 0.4.0 - Moved onto recursive solver, allowing for completion commands to re-enter context

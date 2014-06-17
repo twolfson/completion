@@ -1,7 +1,7 @@
 {
   "name": "completion",
   "description": "Completion library for CLI commands",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/twolfson/completion",
   "author": {
     "name": "Todd Wolfson",
