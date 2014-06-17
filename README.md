@@ -212,7 +212,7 @@ gitCompletion.complete({
 
 gitCompletion.complete({
   // `git remote |`
-  line: 'git remote',
+  line: 'git remote ',
   cursor: 11
 }, function (err, results) {
   results; // ['add', 'remove']
