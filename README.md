@@ -96,6 +96,8 @@ Create a new `completion` instance
 #### `command/option completion` functions
 `options` and `commands` share a common completion function signature, `function (info, cb)`
 
+Each `completion` function will be executed with the command node as its `this` context
+
 - info `Object` - Information about original input
     - Content will be information from [twolfson/line-info][]
     - We provide 2 additional properties
@@ -108,9 +110,12 @@ Create a new `completion` instance
 
 For options, it is often preferred to remove more words that are matched (e.g. `-m <msg>`). For this, we suggest using the [`matchLeftWord` method][match-left-word].
 
+To create non-terminal options, we can use the [method `resolveInfo`][resolve-info] to keep on searching against the `remainingLeft` words.
+
 For completing partial matches, we provide the [`completeLeftWord` method][complete-left-word].
 
 [match-left-word]:
+[resolve-info]:
 [complete-left-word]:
 
 ### `completion.matchLeftWord(info)`
