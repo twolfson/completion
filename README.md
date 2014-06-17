@@ -120,7 +120,7 @@ Helper function to shift word from `info.words.remainingLeft` to `info.words.mat
 
 ```js
 var info = {words: {remainingLeft: ['hello', 'world'], matchedLeft: []}};
-this.matchLeftWord(info);
+info = this.matchLeftWord(info);
 info; // {words: {remainingLeft: ['world'], matchedLeft: ['hello']}}
 ```
 
