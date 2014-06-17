@@ -93,7 +93,7 @@ Create a new `completion` instance
     - completion `Function` - Optional completion function to determine results for a command
         - More info is available in the [`commands/option completion` section][command-completion-section]
 
-[command-completion-section]:
+[command-completion-section]: #commandoption-completion-functions
 
 #### `completion.complete(params, cb)`
 Get potential completion matches for given parameters
