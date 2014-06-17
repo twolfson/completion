@@ -108,24 +108,24 @@ Each `completion` function will be executed with the command node as its `this` 
 
 [twolfson/line-info]: https://github.com/twolfson/line-info#lineinfoparams
 
-For options, it is often preferred to remove more words that are matched (e.g. `-m <msg>`). For this, we suggest using the [`matchLeftWord` method][match-left-word].
+For options, it is often preferred to remove more words that are matched (e.g. `-m <msg>`). For this, we suggest using the [`shiftLeftWord` method][shift-left-word].
 
 To create non-terminal options, we can use the [method `resolveInfo`][resolve-info] to keep on searching against the `remainingLeft` words.
 
 For completing partial matches, we provide the [`completeLeftWord` method][complete-left-word].
 
-[match-left-word]:
+[shift-left-word]:
 [resolve-info]:
 [complete-left-word]:
 
-### `completion.matchLeftWord(info)`
+### `completion.shiftLeftWord(info)`
 Helper function to shift word from `info.words.remainingLeft` to `info.words.matchedLeft`
 
 - info `Object` - Information passed into `completion` functon
 
 ```js
 var info = {words: {remainingLeft: ['hello', 'world'], matchedLeft: []}};
-info = this.matchLeftWord(info);
+info = this.shiftLeftWord(info);
 info; // {words: {remainingLeft: ['world'], matchedLeft: ['hello']}}
 ```
 
@@ -146,13 +146,16 @@ this.completeLeftWord('hello', ['hello-world', 'hello-there', 'goodbye-moon']);
 ```
 
 ### `completion.complete(params, cb)`
-Get potential completion matches
+Get potential completion matches for given parameters
 
 - params `Object` - Information similar to that passed in by `bash's` tab completion
     - line `String` - Input to complete against (similar to `COMP_LINE`)
     - cursor `Number` - Index within `line` of the cursor (similar to `COMP_POINT`)
 - cb `Function` - Error-first callback function that receives matches
     - `cb` should have a signature of `function (err, results)`
+
+## `completion.resolveInfo(info, cb)`
+
 
 ## Examples
 An example of `git` would be
