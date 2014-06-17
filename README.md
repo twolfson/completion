@@ -104,14 +104,6 @@ Get potential completion matches for given parameters
 - cb `Function` - Error-first callback function that receives matches
     - `cb` should have a signature of `function (err, results)`
 
-#### `completion.resolveInfo(info, cb)`
-Recursively find matches against the `Completion's tree` with a given `info`
-
-- info `Object` - CLI information provided by [twolfson/line-info][]
-    - This is converted from `params` to its current equivalent by [twolfson/line-info][]
-- cb `Function` - Error first callback function that receives matches
-    - `cb` should be the same as in `completion.complete`
-
 #### `command/option completion` functions
 `options` and `commands` share a common completion function signature, `function (info, cb)`
 
@@ -163,6 +155,14 @@ Returns:
 this.matchLeftWord('hello', ['hello-world', 'hello-there', 'goodbye-moon']);
 // ['hello-world', 'hello-there'];
 ```
+
+#### `completion.resolveInfo(info, cb)`
+Recursively find matches against the `Completion's tree` with a given `info`
+
+- info `Object` - CLI information provided by [twolfson/line-info][]
+    - This is converted from `params` to its current equivalent by [twolfson/line-info][]
+- cb `Function` - Error first callback function that receives matches
+    - `cb` should be the same as in `completion.complete`
 
 ## Examples
 An example of `git` would be
