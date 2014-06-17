@@ -25,12 +25,12 @@ describe('A partial command with multiple completions', function () {
     name: 'git',
     commands: [{
       name: 'checkout',
-      completion: function (params, cb) {
+      completion: function (info, cb) {
         cb(null, ['hello.world']);
       }
     }, {
       name: 'cherry-pick',
-      completion: function (params, cb) {
+      completion: function (info, cb) {
         cb(null, ['maraschino']);
       }
     }]
@@ -50,12 +50,12 @@ describe('A partial command in junction with the item', function () {
     name: 'git',
     commands: [{
       name: 'checkout',
-      completion: function (params, cb) {
+      completion: function (info, cb) {
         cb(null, ['hello.world']);
       }
     }, {
       name: 'cherry-pick',
-      completion: function (params, cb) {
+      completion: function (info, cb) {
         cb(null, ['maraschino']);
       }
     }]
@@ -109,7 +109,7 @@ describe('A terminal command with a completion function', function () {
     name: 'git',
     commands: [{
       name: 'checkout',
-      completion: function (params, cb) {
+      completion: function (info, cb) {
         cb(null, ['hello-world', 'hello-there']);
       }
     }]
@@ -129,7 +129,7 @@ describe('A command with a completion function', function () {
     name: 'git',
     commands: [{
       name: 'checkout',
-      completion: function (params, cb) {
+      completion: function (info, cb) {
         cb(null, ['hello-world', 'hello-there']);
       }
     }]

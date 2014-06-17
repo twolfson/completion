@@ -12,7 +12,7 @@ describe('A command with terminal options', function () {
     }],
     commands: [{
       name: 'checkout',
-      completion: function (params, cb) {
+      completion: function (info, cb) {
         cb(null, ['hello-world', 'hello-there']);
       }
     }]
@@ -42,13 +42,13 @@ describe('A command with non-terminal options', function () {
       name: 'checkout',
       options: [{
         name: '-b',
-        completion: function (params, cb) {
+        completion: function (info, cb) {
           // The `-b` has already been shifted because we matched `-b`
           // As a result, attempt to complete once again from `git's` context
-          this.resolveInfo(params, cb);
+          this.resolveInfo(info, cb);
         }
       }],
-      completion: function (params, cb) {
+      completion: function (info, cb) {
         cb(null, ['hello-world', 'hello-there']);
       }
     }]
@@ -68,14 +68,14 @@ describe('A command with non-terminal command options', function () {
     name: 'git',
     options: [{
       name: '--dry-run',
-      completion: function (params, cb) {
+      completion: function (info, cb) {
         // --dry-run has already been shifted, continue resolving
-        this.resolveInfo(params, cb);
+        this.resolveInfo(info, cb);
       }
     }],
     commands: [{
       name: 'checkout',
-      completion: function (params, cb) {
+      completion: function (info, cb) {
         cb(null, ['hello-world', 'hello-there']);
       }
     }]
