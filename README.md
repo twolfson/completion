@@ -36,7 +36,7 @@ var completion = new Completion({
           return cb(err);
         }
 
-        // Match 'chec' === 'chec' (from 'checkout')
+        // Match 'dev/' === 'dev/' (from 'dev/hello')
         var partialLeftWord = info.word.partialLeft;
         var branches = that.resolveLeftWord(partialLeftWord, allBranches);
         cb(null, branches);
