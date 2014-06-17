@@ -1,6 +1,6 @@
 {
   "name": "completion",
-  "description": "Completion library for words, commands, and sentences",
+  "description": "Completion library for CLI commands",
   "version": "0.4.0",
   "homepage": "https://github.com/twolfson/completion",
   "author": {
