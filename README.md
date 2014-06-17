@@ -20,10 +20,10 @@ $ git checkout |dev/
 ## Getting Started
 Install the module with: `npm install completion`
 
-```javascript
+```js
 var Completion = require('completion');
 var completion = new Completion({
-  name: 'git'
+  name: 'git',
   commands: [{
     name: 'checkout',
     completion: function (info, cb) {
