@@ -1,6 +1,6 @@
 # completion [![Build status](https://travis-ci.org/twolfson/completion.png?branch=master)](https://travis-ci.org/twolfson/completion)
 
-Completion library for words, commands, and sentences
+Completion library for CLI commands
 
 This was built as part of [foundry][], a CLI utility for making releases painless.
 
@@ -23,8 +23,10 @@ Install the module with: `npm install completion`
 ```javascript
 var Completion = require('completion');
 var completion = new Completion({
-  git: {
-    checkout: function (info, cb) {
+  name: 'git'
+  commands: [{
+    name: 'checkout',
+    completion: function (info, cb) {
       // For `git checkout dev/|`
       // info.words.value = ['git', 'checkout', 'dev/']
       // info.word.partialLeft = 'dev/'
