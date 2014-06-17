@@ -113,6 +113,17 @@ For completing partial matches, we provide the [`completeLeftWord` method][compl
 [match-left-word]:
 [complete-left-word]:
 
+### `matchLeftWord(info)`
+Helper function to shift word from `info.words.remainingLeft` to `info.words.matchedLeft`
+
+- info `Object` - Information passed into `completion` functon
+
+```js
+var info = {words: {remainingLeft: ['hello', 'world'], matchedLeft: []}};
+this.matchLeftWord(info);
+info; // {words: {remainingLeft: ['world'], matchedLeft: ['hello']}}
+```
+
 ### `completion.complete(params, cb)`
 Get potential completion matches
 
