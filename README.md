@@ -110,13 +110,13 @@ Each `completion` function will be executed with the command node as its `this` 
 
 For options, it is often preferred to remove more words that are matched (e.g. `-m <msg>`). For this, we suggest using the [`shiftLeftWord` method][shift-left-word].
 
-To create non-terminal options, we can use the [method `resolveInfo`][resolve-info] to keep on searching against the `remainingLeft` words.
-
 For completing partial matches, we provide the [`matchLeftWord` method][match-left-word].
 
-[shift-left-word]:
-[resolve-info]:
-[match-left-word]:
+To create non-terminal options, we can use the [method `resolveInfo`][resolve-info] to keep on searching against the `remainingLeft` words.
+
+[shift-left-word]: #completionshiftleftwordinfo
+[match-left-word]: #completionmatchleftwordleftword-words
+[resolve-info]: #completionresolveinfoinfo-cb
 
 ### `completion.shiftLeftWord(info)`
 Helper function to shift word from `info.words.remainingLeft` to `info.words.matchedLeft`
