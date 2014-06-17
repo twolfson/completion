@@ -113,7 +113,7 @@ For completing partial matches, we provide the [`completeLeftWord` method][compl
 [match-left-word]:
 [complete-left-word]:
 
-##### `completion.matchLeftWord(info)`
+#### `completion.matchLeftWord(info)`
 Helper function to shift word from `info.words.remainingLeft` to `info.words.matchedLeft`
 
 - info `Object` - Information passed into `completion` functon
@@ -124,7 +124,7 @@ info = this.matchLeftWord(info);
 info; // {words: {remainingLeft: ['world'], matchedLeft: ['hello']}}
 ```
 
-##### `completion.completeLeftWord(leftWord, words)`
+#### `completion.completeLeftWord(leftWord, words)`
 Helper function to find words from `words` that start with `leftWord`
 
 - leftWord `String` - Word to match left content of
@@ -140,7 +140,7 @@ this.completeLeftWord('hello', ['hello-world', 'hello-there', 'goodbye-moon']);
 // ['hello-world', 'hello-there'];
 ```
 
-#### `completion.complete(params, cb)`
+### `completion.complete(params, cb)`
 Get potential completion matches
 
 - params `Object` - Information similar to that passed in by `bash's` tab completion
