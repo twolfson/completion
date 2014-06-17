@@ -167,20 +167,39 @@ An example of `git` would be
 
 ```js
 var gitCompletion = new Completion({
-  git: {
+  name: 'git',
+  options: [{
+    // `git --help`, a terminal option
+    name: '--help'
+  }],
+  commands: [{
     // `git checkout master`
-    checkout: function (info, cb) {
+    name: 'checkout',
+    option: [{
+      // `git checkout -b dev/hello`
+      name: '-b',
+      completion: function (info, cb) {
+        // `-b` was matched by `completion` so keep on recursing
+        return this.resolveInfo(info, cb);
+      }
+    }],
+    completion: function getGitBranches (info, cb) {
       // Get git branches and find matches
-    },
-    remote: {
+    }
+  }, {
+    name: 'remote',
+    commands: [{
       // `git remote add origin git@github.com:...`
-      add: null, // No possible tab completion here
+      // No possible completion here
+      name: 'add'
+    }, {
       // `git remote rm origin`
-      rm: function (info, cb) {
+      name: 'rm',
+      completion: function getGitBranches (info, cb) {
         // Get git branches and find matches
       }
-    }
-  }
+    }]
+  }]
 });
 
 gitCompletion.complete({
