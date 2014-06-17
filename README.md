@@ -107,6 +107,13 @@ Create a new `completion` instance
 
 [twolfson/line-info]: https://github.com/twolfson/line-info#lineinfoparams
 
+For options, it is often preferred to remove more words that are matched (e.g. `-m <msg>`). For this, we suggest using the [`matchLeftWord` method][match-left-word].
+
+For completing partial matches, we provide the [`completeLeftWord` method][complete-left-word].
+
+[match-left-word]: TODO
+[complete-left-word]: TODO
+
 ### `completion.complete(params, cb)`
 Get potential completion matches
 
