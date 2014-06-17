@@ -93,7 +93,7 @@ Create a new `completion` instance
     - completion `Function` - Optional completion function to determine results for a command
         - Details on completion can be found below
 
-#### `completion` functions
+#### `command/option completion` functions
 `options` and `commands` share a common completion function signature, `function (info, cb)`
 
 - info `Object` - Information about original input
@@ -113,7 +113,7 @@ For completing partial matches, we provide the [`completeLeftWord` method][compl
 [match-left-word]:
 [complete-left-word]:
 
-### `matchLeftWord(info)`
+### `completion.matchLeftWord(info)`
 Helper function to shift word from `info.words.remainingLeft` to `info.words.matchedLeft`
 
 - info `Object` - Information passed into `completion` functon
