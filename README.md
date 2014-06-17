@@ -110,8 +110,8 @@ For options, it is often preferred to remove more words that are matched (e.g. `
 
 For completing partial matches, we provide the [`completeLeftWord` method][complete-left-word].
 
-[match-left-word]: TODO
-[complete-left-word]: TODO
+[match-left-word]:
+[complete-left-word]:
 
 ### `completion.complete(params, cb)`
 Get potential completion matches
