@@ -34,9 +34,9 @@
   },
   "devDependencies": {
     "mocha": "~8.4.0",
-    "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-watch": "~0.4.0"
+    "grunt": "~1.4.0",
+    "grunt-contrib-jshint": "~3.0.0",
+    "grunt-contrib-watch": "~1.1.0"
   },
   "keywords": [
     "complete",
