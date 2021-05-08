@@ -1,5 +1,7 @@
 # completion changelog
-1.0.2 - Upgraded packages to fix deep vulnerability, via @striezel in #2 -- bonus: added foundry
+1.0.3 - Corrected CHANGELOG
+
+1.0.2 - Upgraded packages to fix deep vulnerability, via @striezel in #5 -- bonus: added foundry
 
 1.0.1 - Rearranged documentation to make it more straightforward
 
